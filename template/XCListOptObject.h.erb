@@ -1,0 +1,43 @@
+
+#pragma once
+
+#include "XCOptFlag.h"
+#include "XCOptInt32.h"
+#include "XCOptString.h"
+
+#include <getopt.h>
+
+class XCOptObject;
+
+/**
+ * list of XCOptObject.
+ */
+class XCListOptObject
+{
+public:
+    static const int msc_numOpts = <%= YAML_OPT_LIST['options'].length %>; ///< num options
+    static const int msc_indent = <%= INDENT %>;
+
+    void help() const;
+    void show() const;
+    void load(const int in_index, const char* in_optarg);
+
+    struct option* getOptions();
+
+    XCListOptObject();
+    virtual ~XCListOptObject();
+
+private:
+<%- YAML_OPT_LIST['options'].each_value do |val| -%>
+    <%= YAML_SETTINGS[val['type']]['class'] %> <%= val['name']%>; ///< <%= val['comment'] %>
+<%- end -%>
+    XCOptObject* m_ppcOptObj[<%= YAML_OPT_LIST['options'].size%>];
+
+    int m_iOptIndex;
+    struct option m_options[msc_numOpts + 1];
+};
+
+inline struct option* XCListOptObject::getOptions()
+{
+    return m_options;
+}

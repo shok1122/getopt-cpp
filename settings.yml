@@ -1,0 +1,9 @@
+string:
+  class: 'XCOptString'
+  has_arg: 'required_argument'
+int32:
+  class: 'XCOptInt32'
+  has_arg: 'required_argument'
+flag:
+  class: 'XCOptFlag'
+  has_arg: 'no_argument'

@@ -1,0 +1,47 @@
+#include "XCListOptObject.h"
+#include "XCOptObject.h"
+
+#include <stdio.h>
+
+XCListOptObject::XCListOptObject():
+<%- YAML_OPT_LIST['options'].each_with_index do |(key,val),i| -%>
+    <%= val['name']%>("<%=key%>", "<%=val['description']%>", msc_indent)<% if i + 1 != YAML_OPT_LIST['options'].size %>,<% end %>
+<%- end -%>
+{
+<%- YAML_OPT_LIST['options'].each_with_index do |(key,val),i| -%>
+    m_ppcOptObj[<%= i %>] = (XCOptObject*) &<%= val['name']%>;
+<%- end -%>
+
+    for (int i = 0; i < <%=YAML_OPT_LIST['options'].size%>; i++)
+    {
+        m_ppcOptObj[i]->getOption(&(m_options[i]));
+    }
+}
+
+XCListOptObject::~XCListOptObject()
+{
+}
+
+void XCListOptObject::help() const
+{
+    for (int i = 0; i < <%=YAML_OPT_LIST['options'].size%>; i++)
+    {
+        m_ppcOptObj[i]->help();
+    }
+}
+
+void XCListOptObject::show() const
+{
+    for (int i = 0; i < <%=YAML_OPT_LIST['options'].size%>; i++)
+    {
+        m_ppcOptObj[i]->show();
+    }
+}
+
+void XCListOptObject::load(
+    const int in_index,   ///< [in] num of runtime args
+    const char* in_optarg ///< [in] runtime args
+    )
+{
+    m_ppcOptObj[in_index]->load(in_optarg);
+}
