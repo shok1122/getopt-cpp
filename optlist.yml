@@ -13,7 +13,6 @@ options:
       - 'ccc'
   num-a:
     type: 'int32'
-    base: 10
     description: 'description of num-a'
     comment: 'description of num-a'
   flag-a:
