@@ -44,12 +44,6 @@ INDENT = 2 + indent + 4;
 
 YAML_OPT_LIST['options'].each do |key, val|
   val['name'] = makeVariableName(key)
-  args = "\"#{key}\", \"#{val['description']}\""
-  case val['type']
-  when 'int32'
-    args += ", #{val['base']}"
-  end
-  val['constructor'] = args
 end
 
 # auto-generate (List of OptObject)
