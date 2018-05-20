@@ -1,6 +1,6 @@
-#include "XCGetOpt.h"
+#include <XCGetOpt.h>
 
-#include "XCListOptObject.h"
+#include <XCListOptObject.h>
 
 XCGetOpt::XCGetOpt()
 {
