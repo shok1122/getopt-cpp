@@ -43,14 +43,14 @@ def makeOptList(arg_name, arg_list_enum)
   name_class = arg_name
   list_enum = arg_list_enum
 
-  path_h_erb = 'template/XCOptXXXList.h.erb'
+  path_h_erb = 'template/XCOptStringXxx.h.erb'
   path_h = "dist/XCOpt#{name_class}.h"
   erb = ERB.new(IO.read(path_h_erb), nil, '-')
   File.open(path_h, 'w') do |f|
     f.write(erb.result(binding))
     puts "#{path_h_erb} -> #{path_h}"
   end
-  path_cpp_erb = 'template/XCOptXXXList.cpp.erb'
+  path_cpp_erb = 'template/XCOptStringXxx.cpp.erb'
   path_cpp = "dist/XCOpt#{name_class}.cpp"
   erb = ERB.new(IO.read(path_cpp_erb), nil, '-')
   File.open(path_cpp, 'w') do |f|
