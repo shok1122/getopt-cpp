@@ -1,0 +1,34 @@
+#include <XCOpt<%=name_class%>.h>
+
+#include <string.h>
+
+XCOpt<%=name_class%>::XCOpt<%=name_class%>(
+    const char* in_name,      ///< [in] option name
+    const char* in_description, ///< [in] description of option's arg
+    const int in_indent         ///< [in] indent size
+    ):
+    XCOptString(in_name, in_description, in_indent),
+    m_type(unknown)
+{
+}
+
+XCOpt<%=name_class%>::~XCOpt<%=name_class%>()
+{
+}
+
+bool XCOpt<%=name_class%>::load(
+    const char* in_optarg ///< [in] optarg
+    )
+{
+    XCOptString::load(in_optarg);
+
+<%- list_enum.each_with_index do |val, i| -%>
+    if (0 == strcmp(in_optarg, "<%=val%>"))
+    {
+        m_type = <%=val%>;
+        return true;
+    }
+<%- end -%>
+
+    return false;
+}

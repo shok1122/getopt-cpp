@@ -1,0 +1,27 @@
+
+#pragma once
+
+#include <XCOptString.h>
+
+class XCOpt<%=name_class%>: public XCOptString
+{
+public:
+    enum TYPE
+    {
+        unknown = -1,
+    <%- list_enum.each_with_index do |val, i| -%>
+        <%=val%><% if i == 0%> = 0<% end %>,
+    <%- end -%>
+    };
+
+    virtual bool load(const char* in_optarg);
+
+    XCOpt<%=name_class%>(
+        const char* in_name,
+        const char* in_description,
+        const int in_indent);
+    virtual ~XCOpt<%=name_class%>();
+
+private:
+    TYPE m_type;
+};

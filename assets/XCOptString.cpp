@@ -4,11 +4,11 @@
 #include <stdlib.h>
 
 XCOptString::XCOptString(
-    const char* in_option,      ///< [in] option name
+    const char* in_name,      ///< [in] option name
     const char* in_description, ///< [in] description of option's arg
     const int in_indent         ///< [in] indent size
     ):
-    XCOptObject(in_option, in_description, required_argument, in_indent),
+    XCOptObject(in_name, in_description, required_argument, in_indent),
     m_arg(0)
 {
 }
@@ -20,16 +20,18 @@ XCOptString::~XCOptString()
 /**
  * load optarg.
  */
-void XCOptString::load(
+bool XCOptString::load(
     const char* in_optarg ///< [in] optarg
     )
 {
     if (nullptr == in_optarg)
     {
-        return;
+        return false;
     }
 
     m_arg = in_optarg;
+
+    return true;
 }
 
 /**

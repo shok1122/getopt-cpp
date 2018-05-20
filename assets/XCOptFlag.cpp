@@ -4,11 +4,11 @@
 #include <stdlib.h>
 
 XCOptFlag::XCOptFlag(
-    const char* in_option,      ///< [in] option name
+    const char* in_name,        ///< [in] option name
     const char* in_description, ///< [in] description of option's arg
     const int in_indent         ///< [in] indent size
     ):
-    XCOptObject(in_option, in_description, no_argument, in_indent),
+    XCOptObject(in_name, in_description, no_argument, in_indent),
     m_arg(false)
 {
 }
@@ -20,16 +20,18 @@ XCOptFlag::~XCOptFlag()
 /**
  * load optarg.
  */
-void XCOptFlag::load(
+bool XCOptFlag::load(
     const char* in_optarg ///< [in] optarg
     )
 {
     if (nullptr == in_optarg)
     {
-        return;
+        return false;
     }
 
     m_arg = true;
+
+    return true;
 }
 
 /**

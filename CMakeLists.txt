@@ -5,12 +5,9 @@ project(getopt_test CXX)
 
 include_directories(dist)
 
+file(GLOB DIST_FILES dist/*.cpp)
+
 add_executable(getopt_test
+	${DIST_FILES}
 	test/main.cpp
-	dist/XCGetOpt.cpp
-	dist/XCListOptObject.cpp
-	dist/XCOptFlag.cpp
-	dist/XCOptInt32.cpp
-	dist/XCOptObject.cpp
-	dist/XCOptString.cpp
 )

@@ -4,18 +4,18 @@
 #include <string.h>
 
 XCOptObject::XCOptObject(
-    const char* in_option,       ///< [in] option name
+    const char* in_name,         ///< [in] option name
     const char* in_description,  ///< [in] description of option's arg
     const int in_hasArg,         ///< [in] has_arg flag
     const int in_indent          ///< [in] indent size
     ):
-    m_name(in_option),
+    m_name(in_name),
     m_description(in_description),
     m_hasArg(in_hasArg),
     m_indent(in_indent),
     m_sizeSpace(0)
 {
-    m_sizeSpace = m_indent - (strlen(in_option) + 2);
+    m_sizeSpace = m_indent - (strlen(in_name) + 2);
 }
 
 XCOptObject::~XCOptObject()

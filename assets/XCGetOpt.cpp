@@ -13,7 +13,7 @@ XCGetOpt::~XCGetOpt()
 /**
  * exec getopt.
  */
-void XCGetOpt::getopt(
+bool XCGetOpt::getopt(
     const int in_argc,            ///< [in] num of runtime args
     char* const in_argv[],        ///< [in] runtime args
     XCListOptObject* inout_pcList ///< [in,out] list of optobject
@@ -22,16 +22,22 @@ void XCGetOpt::getopt(
     struct option* option = inout_pcList->getOptions();
     int opt = 0;
     int longindex = 0;
+    bool bIsFailure = false;
     while ((opt = getopt_long(in_argc, in_argv, "h", option, &longindex)) != -1) 
     {
         switch(opt)
         {
             case 0:
-                inout_pcList->load(longindex, optarg);
+                if (false == inout_pcList->load(longindex, optarg))
+                {
+                    bIsFailure = true;
+                }
                 break;
             default:
                 inout_pcList->help();
                 break;
         }
     }
+
+    return !bIsFailure;
 }

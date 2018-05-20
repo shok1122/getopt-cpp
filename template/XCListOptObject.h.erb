@@ -1,9 +1,9 @@
 
 #pragma once
 
-#include <XCOptFlag.h>
-#include <XCOptInt32.h>
-#include <XCOptString.h>
+<%- CLASS_LIST.each do |val| -%>
+#include <<%=val%>.h>
+<%- end -%>
 
 #include <getopt.h>
 
@@ -20,7 +20,7 @@ public:
 
     void help() const;
     void show() const;
-    void load(const int in_index, const char* in_optarg);
+    bool load(const int in_index, const char* in_optarg);
 
     struct option* getOptions();
 
@@ -29,7 +29,7 @@ public:
 
 private:
 <%- YAML_OPT_LIST['options'].each_value do |val| -%>
-    <%= YAML_SETTINGS[val['type']]['class'] %> <%= val['name']%>; ///< <%= val['comment'] %>
+    <%=val['class']%> <%= val['name']%>; ///< <%= val['comment'] %>
 <%- end -%>
     XCOptObject* m_ppcOptObj[<%= YAML_OPT_LIST['options'].size%>];
 
